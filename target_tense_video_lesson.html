@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Plus Education Center - P.6 Tense Master Video Lesson</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+            background: #060913;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .video-glow {
+            box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.25);
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .glow-gold {
+            text-shadow: 0 0 16px rgba(251, 191, 36, 0.6);
+        }
+
+        .glow-cyan {
+            text-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+        }
+
+        /* Animations */
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: gentleFloat 3.2s ease-in-out infinite;
+        }
+
+        @keyframes planeFly {
+            0% { transform: translate(-30px, 20px) rotate(-4deg) scale(0.9); opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { transform: translate(240px, -25px) rotate(8deg) scale(1.1); opacity: 1; }
+        }
+        .animate-plane-fly {
+            animation: planeFly 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseRing {
+            0% { transform: scale(0.96); opacity: 0.8; }
+            50% { transform: scale(1.04); opacity: 1; }
+            100% { transform: scale(0.96); opacity: 0.8; }
+        }
+        .animate-pulse-ring {
+            animation: pulseRing 2.2s infinite ease-in-out;
+        }
+
+        .btn-bounce {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-bounce:hover {
+            transform: translateY(-2px) scale(1.03);
+        }
+        .btn-bounce:active {
+            transform: translateY(1px) scale(0.97);
+        }
+
+        /* Video scrubbing slider styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #f59e0b;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+            margin-top: -5px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-slate-950 text-slate-100">
+
+    <!-- Top Brand Navbar -->
+    <header class="w-full px-4 py-3 bg-slate-900/90 border-b border-indigo-500/30 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <!-- Target Plus Education Center Branding -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 via-amber-500 to-orange-500 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-amber-500/30">
+                    T+
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <h1 class="font-extrabold text-base md:text-xl text-white tracking-wide">
+                            目標星級教育中心 <span class="text-amber-400 font-normal text-xs md:text-sm">Target Plus</span>
+                        </h1>
+                        <span class="bg-indigo-600/90 text-indigo-100 text-[10px] md:text-xs px-2.5 py-0.5 rounded-full font-bold border border-indigo-400/30">P.6 T1 Lesson 9</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Target English Animated Video Lesson: 4 Tenses Master Class (呈分試必勝影片)</p>
+                </div>
+            </div>
+
+            <!-- Top Actions -->
+            <div class="flex items-center space-x-2 md:space-x-3">
+                <!-- Subtitle Toggle -->
+                <button id="cc-btn" onclick="toggleSubtitles()" class="btn-bounce bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-400 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center space-x-1.5">
+                    <i class="fa-solid fa-closed-captioning text-base"></i>
+                    <span id="cc-label">字幕 CC: ON</span>
+                </button>
+
+                <!-- Voice Language -->
+                <button onclick="toggleVoiceLanguage()" class="btn-bounce bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/50 text-indigo-200 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center space-x-1.5">
+                    <i class="fa-solid fa-language text-indigo-400"></i>
+                    <span id="lang-label">粵語雙語旁白</span>
+                </button>
+
+                <!-- Grammar Cheat Sheet Button -->
+                <button onclick="toggleCheatSheet(true)" class="btn-bounce bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-3.5 py-1.5 rounded-xl text-xs flex items-center space-x-1 shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span class="hidden md:inline">筆記秘籍</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Video Studio Layout -->
+    <main class="max-w-7xl mx-auto w-full p-2 md:p-6 flex-grow grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+
+        <!-- Left 3 Columns: Interactive Video Canvas Stage -->
+        <div class="lg:col-span-3 flex flex-col space-y-3">
+            
+            <!-- Video Player Window Frame -->
+            <div class="relative w-full glass-panel rounded-3xl overflow-hidden video-glow border border-indigo-500/30 flex flex-col justify-between min-h-[460px] md:min-h-[540px]">
+                
+                <!-- Video Header Bar inside screen -->
+                <div class="px-5 py-3 bg-slate-900/80 border-b border-slate-800 flex justify-between items-center z-20">
+                    <div class="flex items-center space-x-2">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                        </span>
+                        <span class="text-xs font-black text-slate-200 uppercase tracking-wider">LESSON VIDEO STREAMING</span>
+                    </div>
+
+                    <div class="flex items-center space-x-2 text-xs">
+                        <span id="video-chapter-badge" class="px-3 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
+                            1. Intro & Overview
+                        </span>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC VIDEO ANIMATION STAGE (Canvas/CSS Dynamic Visuals) -->
+                <div id="video-stage" class="relative flex-grow flex flex-col justify-center items-center p-4 md:p-8 z-10">
+                    <!-- Dynamic video scene contents injected here -->
+                </div>
+
+                <!-- Teacher PIP Avatar Overlay (Bottom Right of Video Screen) -->
+                <div class="absolute bottom-16 right-4 z-20 hidden sm:flex items-center space-x-2 bg-slate-900/90 border border-amber-500/40 p-2 rounded-2xl shadow-xl backdrop-blur-md">
+                    <div class="relative w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-amber-500 flex items-center justify-center font-black text-2xl text-white shadow-lg">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <span id="speaking-indicator" class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-slate-900 rounded-full animate-pulse"></span>
+                    </div>
+                    <div class="pr-2">
+                        <div class="text-[11px] font-extrabold text-amber-400">Target Plus 名師</div>
+                        <div id="teacher-status-text" class="text-[10px] text-slate-300 font-medium">解說中 Narration Active</div>
+                    </div>
+                </div>
+
+                <!-- SUBTITLE OVERLAY (Bottom Center of Video Screen) -->
+                <div id="subtitle-box" class="absolute bottom-16 left-4 right-4 sm:right-48 z-20 bg-slate-950/85 border border-indigo-500/50 p-3 rounded-2xl text-center backdrop-blur-md shadow-2xl transition-all">
+                    <p id="subtitle-text" class="text-xs md:text-sm font-bold text-amber-300 leading-snug">
+                        Hello 各位 P.6 同學仔！歡迎來到 Target Plus 呈分試 Tenses 奪星影片課堂！
+                    </p>
+                </div>
+
+                <!-- VIDEO PLAYER CONTROLS TOOLBAR -->
+                <div class="bg-slate-900/95 border-t border-slate-800 p-3 md:p-4 z-30 flex flex-col space-y-2">
+                    
+                    <!-- Scrub Timeline Slider & Progress Bar -->
+                    <div class="flex items-center space-x-3 text-xs font-mono font-bold text-slate-400">
+                        <span id="current-time-display" class="text-amber-400">00:00</span>
+                        <input id="timeline-scrubber" type="range" min="0" max="100" value="0" oninput="seekVideo(this.value)" class="flex-grow">
+                        <span id="total-time-display">06:00</span>
+                    </div>
+
+                    <!-- Buttons Control Row -->
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        
+                        <!-- Play / Pause / Rewind / Fast Forward -->
+                        <div class="flex items-center space-x-2">
+                            <button onclick="rewind10s()" class="btn-bounce bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-xl text-xs w-9 h-9 flex items-center justify-center">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+
+                            <button id="main-play-btn" onclick="togglePlay()" class="btn-bounce bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 px-5 py-2 rounded-xl text-sm font-black flex items-center shadow-lg shadow-amber-500/25">
+                                <i id="main-play-icon" class="fa-solid fa-play mr-2"></i>
+                                <span id="main-play-text">播放影片 Play</span>
+                            </button>
+
+                            <button onclick="forward10s()" class="btn-bounce bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-xl text-xs w-9 h-9 flex items-center justify-center">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+
+                            <!-- Volume Toggle -->
+                            <button onclick="toggleMute()" class="btn-bounce bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-xl text-xs w-9 h-9 flex items-center justify-center">
+                                <i id="volume-icon" class="fa-solid fa-volume-high text-amber-400"></i>
+                            </button>
+                        </div>
+
+                        <!-- Speed Controls -->
+                        <div class="flex items-center space-x-2">
+                            <label class="text-[11px] font-bold text-slate-400 hidden sm:inline">播放速度:</label>
+                            <button onclick="setSpeed(1.0)" id="speed-10" class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-black text-xs">1.0x</button>
+                            <button onclick="setSpeed(1.25)" id="speed-125" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs">1.25x</button>
+                            <button onclick="setSpeed(1.5)" id="speed-15" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs">1.5x</button>
+                        </div>
+
+                        <!-- Fullscreen -->
+                        <button onclick="toggleFullScreen()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-xl text-xs w-9 h-9 flex items-center justify-center border border-slate-700">
+                            <i class="fa-solid fa-expand"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right 1 Column: Interactive Video Chapter Index & Lesson Notes -->
+        <div class="lg:col-span-1 space-y-4">
+            
+            <!-- Video Chapters List Card -->
+            <div class="glass-panel p-4 rounded-3xl border border-indigo-500/30 space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <h3 class="font-black text-sm text-amber-300 flex items-center">
+                        <i class="fa-solid fa-list-ul mr-2 text-indigo-400"></i> 影片章節 (Video Chapters)
+                    </h3>
+                    <span class="text-[10px] text-slate-400 font-mono">6 Scenes</span>
+                </div>
+
+                <div id="chapter-list-box" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Target Exam Tips Card -->
+            <div class="bg-gradient-to-br from-indigo-950/80 to-slate-900 border border-indigo-500/40 p-4 rounded-3xl space-y-2">
+                <div class="text-xs font-black text-amber-400 flex items-center">
+                    <i class="fa-solid fa-fire mr-1.5 text-amber-500"></i> Target Plus 呈分試奪星秘訣
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                    做英文時態題，<strong class="text-amber-300">千萬不要憑感覺翻譯！</strong> 必定要在題目句子中畫出 <strong class="text-amber-300 underline">Keyword (提示字)</strong>，對應四大時態公式！
+                </p>
+                <button onclick="toggleCheatSheet(true)" class="w-full mt-2 bg-indigo-600/80 hover:bg-indigo-500 text-white font-bold text-xs py-2 rounded-xl transition-all">
+                    打開完整 4 大 Tenses 語法對照表
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Grammar Notes Cheat Sheet Modal -->
+    <div id="cheat-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 hidden flex justify-center items-center p-4">
+        <div class="bg-slate-900 border border-indigo-500/50 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-800/90 border-b border-indigo-500/30 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 font-black flex items-center justify-center">
+                        P.6
+                    </div>
+                    <h3 class="font-black text-base md:text-lg text-white">Target Plus P.6-T1-L9 Grammar Summary</h3>
+                </div>
+                <button onclick="toggleCheatSheet(false)" class="text-slate-400 hover:text-white text-2xl font-bold w-8 h-8 flex items-center justify-center">
+                    &times;
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 overflow-y-auto space-y-4 text-xs md:text-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- 1. Simple Present -->
+                    <div class="bg-slate-800/80 p-4 rounded-2xl border border-blue-500/40 space-y-2">
+                        <div class="font-extrabold text-blue-400 text-base flex justify-between items-center">
+                            <span>1. Simple Present Tense 簡單現在式</span>
+                            <span class="text-xs bg-blue-900/60 px-2 py-0.5 rounded text-blue-200">習慣 / 事實</span>
+                        </div>
+                        <p class="text-slate-300"><strong class="text-white">用法：</strong>永恆情況/事實、習慣、喜好、狀況</p>
+                        <p class="text-slate-300"><strong class="text-white">動詞：</strong>原本動詞 (⚠️ He/She/It 動詞加 +s/es/ies)</p>
+                        <p class="text-amber-300"><strong class="text-white">Keywords:</strong> always, usually, sometimes, often, seldom, once a week, twice a month, every day, on Mondays...</p>
+                        <div class="text-indigo-200 bg-indigo-950/70 p-2.5 rounded-xl border border-indigo-500/30">
+                            <strong>例句：</strong> Biana goes shopping every Sunday.
+                        </div>
+                    </div>
+
+                    <!-- 2. Simple Past -->
+                    <div class="bg-slate-800/80 p-4 rounded-2xl border border-rose-500/40 space-y-2">
+                        <div class="font-extrabold text-rose-400 text-base flex justify-between items-center">
+                            <span>2. Simple Past Tense 過去式</span>
+                            <span class="text-xs bg-rose-900/60 px-2 py-0.5 rounded text-rose-200">過去已完成</span>
+                        </div>
+                        <p class="text-slate-300"><strong class="text-white">用法：</strong>過去了，現在已改變</p>
+                        <p class="text-slate-300"><strong class="text-white">動詞：</strong>轉過去式 (went, played, saw)</p>
+                        <p class="text-amber-300"><strong class="text-white">Keywords:</strong> yesterday, ago, last week/month, this morning, today (需細心判斷是否已過去)</p>
+                        <div class="text-indigo-200 bg-indigo-950/70 p-2.5 rounded-xl border border-indigo-500/30">
+                            <strong>例句：</strong> Biana went shopping yesterday.
+                        </div>
+                    </div>
+
+                    <!-- 3. Simple Future -->
+                    <div class="bg-slate-800/80 p-4 rounded-2xl border border-emerald-500/40 space-y-2">
+                        <div class="font-extrabold text-emerald-400 text-base flex justify-between items-center">
+                            <span>3. Simple Future Tense 將來式</span>
+                            <span class="text-xs bg-emerald-900/60 px-2 py-0.5 rounded text-emerald-200">將有可能發生</span>
+                        </div>
+                        <p class="text-slate-300"><strong class="text-white">用法：</strong>將有可能發生的動作或計劃</p>
+                        <p class="text-slate-300"><strong class="text-white">動詞：</strong>will + 原本動詞 (will go)</p>
+                        <p class="text-amber-300"><strong class="text-white">Keywords:</strong> coming Sunday, soon, later, tomorrow, next year/week...</p>
+                        <div class="text-indigo-200 bg-indigo-950/70 p-2.5 rounded-xl border border-indigo-500/30">
+                            <strong>例句：</strong> Kelvin will go to Japan next week.
+                        </div>
+                    </div>
+
+                    <!-- 4. Present Perfect -->
+                    <div class="bg-slate-800/80 p-4 rounded-2xl border border-purple-500/40 space-y-2">
+                        <div class="font-extrabold text-purple-400 text-base flex justify-between items-center">
+                            <span>4. Present Perfect Tense 現在完成式</span>
+                            <span class="text-xs bg-purple-900/60 px-2 py-0.5 rounded text-purple-200">過去帶到現在</span>
+                        </div>
+                        <p class="text-slate-300"><strong class="text-white">用法：</strong>由過去帶到現在，過去動作影響現在行動</p>
+                        <p class="text-slate-300"><strong class="text-white">動詞：</strong>has / have + p.p. (Past Participle)</p>
+                        <p class="text-amber-300"><strong class="text-white">Keywords:</strong> already, just, never, ever, yet, before, <span class="underline decoration-amber-400">since + 起點</span>, <span class="underline decoration-amber-400">for + 時期</span></p>
+                        <div class="text-indigo-200 bg-indigo-950/70 p-2.5 rounded-xl border border-indigo-500/30">
+                            <strong>例句：</strong> I have moved to Japan since 2010.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-slate-800/90 text-right border-t border-slate-700">
+                <button onclick="toggleCheatSheet(false)" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2 rounded-xl text-xs">
+                    關閉秘籍 (Close)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Footer -->
+    <footer class="w-full text-center py-2.5 text-xs text-slate-500 border-t border-slate-800/80 bg-slate-900/60">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center px-4">
+            <div>Target Plus Education Center &copy; All Rights Reserved. Animated Video Teaching Module.</div>
+            <button onclick="toggleCheatSheet(true)" class="text-amber-400 hover:text-amber-300 font-bold underline mt-1 sm:mt-0 flex items-center space-x-1">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>查看語法筆記總表 (Grammar Summary)</span>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // GLOBAL VIDEO PLAYER STATE
+        let isPlaying = false;
+        let isMuted = false;
+        let showSubtitles = true;
+        let playbackSpeed = 1.0;
+        let voiceLang = 'zh-HK'; // Cantonese bilingual narration
+        let currentSceneIndex = 0;
+        let audioCtx = null;
+        let sceneTimer = null;
+        let elapsedTimeInSeconds = 0;
+        const totalVideoSeconds = 360; // 6 minutes total video lesson
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playFx(type) {
+            if (isMuted) return;
+            initAudio();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+
+            if (type === 'pop') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, now);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+                osc.start(now);
+                osc.stop(now + 0.12);
+            } else if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.12);
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.25);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'chime') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(320, now);
+                osc.frequency.exponentialRampToValueAtTime(640, now + 0.15);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                osc.start(now);
+                osc.stop(now + 0.15);
+            }
+        }
+
+        // Web Speech API Voice Narration
+        function speakText(text) {
+            if (isMuted) return;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = voiceLang;
+                utterance.rate = 0.95 * playbackSpeed;
+                utterance.pitch = 1.02;
+
+                const indicator = document.getElementById('speaking-indicator');
+                if (indicator) indicator.classList.add('animate-ping');
+
+                utterance.onend = function() {
+                    if (indicator) indicator.classList.remove('animate-ping');
+                };
+
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const icon = document.getElementById('volume-icon');
+            if (isMuted) {
+                icon.className = "fa-solid fa-volume-xmark text-slate-500";
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            } else {
+                icon.className = "fa-solid fa-volume-high text-amber-400";
+                playFx('pop');
+            }
+        }
+
+        function toggleSubtitles() {
+            showSubtitles = !showSubtitles;
+            const subBox = document.getElementById('subtitle-box');
+            const label = document.getElementById('cc-label');
+            if (showSubtitles) {
+                subBox.classList.remove('hidden');
+                label.innerText = "字幕 CC: ON";
+            } else {
+                subBox.classList.add('hidden');
+                label.innerText = "字幕 CC: OFF";
+            }
+        }
+
+        function toggleVoiceLanguage() {
+            if (voiceLang === 'zh-HK') {
+                voiceLang = 'en-US';
+                document.getElementById('lang-label').innerText = "English Voice";
+                speakText("English teacher narration active.");
+            } else {
+                voiceLang = 'zh-HK';
+                document.getElementById('lang-label').innerText = "粵語雙語旁白";
+                speakText("已切換為粵語補習名師教學影片旁白");
+            }
+        }
+
+        function setSpeed(speed) {
+            playbackSpeed = speed;
+            document.getElementById('speed-10').className = speed === 1.0 ? "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-black text-xs" : "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs";
+            document.getElementById('speed-125').className = speed === 1.25 ? "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-black text-xs" : "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs";
+            document.getElementById('speed-15').className = speed === 1.5 ? "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-black text-xs" : "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs";
+            playFx('pop');
+        }
+
+        function toggleCheatSheet(show) {
+            playFx('pop');
+            const modal = document.getElementById('cheat-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {});
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        // SCENES VIDEO STORYBOARD DATA
+        const VIDEO_CHAPTERS = [
+            {
+                title: "1. 影片開端 Intro & Strategy",
+                timeRange: "00:00 - 01:00",
+                badge: "LESSON INTRO",
+                speech: "Hello P.6 嘅同學仔！歡迎來到 Target Plus 呈分試 Tenses 奪星特訓影片！做英文卷，最緊要唔好盲目靠估，一定要先搵句中嘅 Keywords！今日帶你一次過通關四大時態！",
+                subtitle: "Hello P.6 嘅同學仔！歡迎來到 Target Plus 呈分試 Tenses 奪星影片課堂！做題最緊要搵 Keywords！",
+                render: () => `
+                    <div class="text-center space-y-5 max-w-3xl animate-float">
+                        <div class="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-indigo-500/20 border border-amber-500/40 px-4 py-1.5 rounded-full text-amber-300 font-bold text-xs md:text-sm shadow-lg">
+                            <i class="fa-solid fa-clapperboard text-amber-400"></i>
+                            <span>Target Plus Education Center - P.6 T1 Lesson 9</span>
+                        </div>
+                        
+                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-wider glow-gold leading-tight">
+                            4 大必考 Tenses 奪星教學影片 <br>
+                            <span class="text-xl md:text-2xl text-amber-400 font-extrabold mt-2 block">呈分試 Tenses Interactive Master Class</span>
+                        </h2>
+
+                        <!-- 4 Tenses Overview Badges -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left pt-3">
+                            <div class="bg-blue-950/80 border border-blue-500/40 p-3 rounded-2xl">
+                                <div class="text-xs font-bold text-blue-300">1. Simple Present</div>
+                                <div class="text-[10px] text-slate-400 mt-0.5">習慣 / 喜好 / 事實</div>
+                            </div>
+                            <div class="bg-rose-950/80 border border-rose-500/40 p-3 rounded-2xl">
+                                <div class="text-xs font-bold text-rose-300">2. Simple Past</div>
+                                <div class="text-[10px] text-slate-400 mt-0.5">過去已完成完結</div>
+                            </div>
+                            <div class="bg-emerald-950/80 border border-emerald-500/40 p-3 rounded-2xl">
+                                <div class="text-xs font-bold text-emerald-300">3. Simple Future</div>
+                                <div class="text-[10px] text-slate-400 mt-0.5">將來會發生</div>
+                            </div>
+                            <div class="bg-purple-950/80 border border-purple-500/40 p-3 rounded-2xl">
+                                <div class="text-xs font-bold text-purple-300">4. Present Perfect</div>
+                                <div class="text-[10px] text-slate-400 mt-0.5">過去一直帶到現在</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            {
+                title: "2. Simple Present Tense 簡單現在式",
+                timeRange: "01:00 - 02:15",
+                badge: "TENSE 1: SIMPLE PRESENT",
+                speech: "第一招：Simple Present Tense！主要講習慣、事實同喜好。提示字有 every Sunday, always, usually 等等。特別留意：He, She, It 後面動詞必須要加 s, es 或者 ies！例如：Biana goes shopping every Sunday.",
+                subtitle: "Simple Present Tense 常用於習慣與事實。He / She / It 後面動詞要加 +s/es/ies！",
+                render: () => `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-full">
+                        <div class="bg-slate-900/90 border border-blue-500/40 rounded-3xl p-5 text-center space-y-4">
+                            <span class="text-xs font-black text-blue-400 uppercase tracking-widest">SCENE 1: BIANA'S HABIT</span>
+                            
+                            <div class="w-36 h-36 mx-auto bg-slate-800 border-2 border-blue-400 rounded-2xl flex flex-col justify-between p-3 animate-float shadow-xl">
+                                <div class="bg-blue-600 text-white font-extrabold text-[10px] py-1 rounded uppercase">SUNDAY ROUTINE</div>
+                                <i class="fa-solid fa-bag-shopping text-5xl text-amber-400 my-1"></i>
+                                <div class="text-[10px] text-blue-200 font-bold bg-blue-950/90 py-0.5 rounded">Every Sunday</div>
+                            </div>
+
+                            <div class="text-base md:text-xl font-black text-white">
+                                Biana <span class="text-amber-400 font-black underline decoration-blue-400 decoration-4">goes</span> shopping every Sunday.
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-slate-800/90 p-3.5 rounded-2xl border border-blue-500/30">
+                                <div class="font-bold text-blue-300 text-sm mb-1"><i class="fa-solid fa-circle-check mr-1.5"></i> 用法：習慣、喜好、事實</div>
+                                <p class="text-slate-300">表示定期重覆發生的動作或自然現象。</p>
+                            </div>
+
+                            <div class="bg-amber-950/50 p-3.5 rounded-2xl border border-amber-500/50">
+                                <div class="font-black text-amber-400 text-xs mb-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i> 呈分試重點動詞變化：</div>
+                                <p class="text-slate-100">
+                                    <span class="text-amber-300 font-bold">He / She / It / 單數名詞</span> &rarr; 動詞加 <span class="text-amber-300 font-black">+s / +es / +ies</span> (例: go &rarr; goes)
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-900/90 p-3 rounded-2xl border border-slate-700">
+                                <div class="text-slate-400 font-bold mb-1.5">📌 必背 Keywords:</div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="bg-blue-950 text-blue-300 border border-blue-800 px-2 py-0.5 rounded">always / usually / often</span>
+                                    <span class="bg-blue-950 text-blue-300 border border-blue-800 px-2 py-0.5 rounded">every day / Sunday</span>
+                                    <span class="bg-blue-950 text-blue-300 border border-blue-800 px-2 py-0.5 rounded">twice a month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            {
+                title: "3. Simple Past Tense 過去式",
+                timeRange: "02:15 - 03:30",
+                badge: "TENSE 2: SIMPLE PAST",
+                speech: "第二招：Simple Past Tense！過去發生咗、現在已經改變。關鍵字有 yesterday, ago, last week！注意試題陷阱：見到 this morning 或者 today，要細心判斷講說話該刻係咪已經過咗去！例如：Biana went shopping yesterday.",
+                subtitle: "Simple Past 表示過去已完成。遇到 this morning / today 要仔細判斷是否已過去！",
+                render: () => `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-full">
+                        <div class="bg-slate-900/90 border border-rose-500/40 rounded-3xl p-5 text-center space-y-4">
+                            <span class="text-xs font-black text-rose-400 uppercase tracking-widest">SCENE 2: YESTERDAY'S TRIP</span>
+                            
+                            <div class="w-36 h-36 mx-auto bg-slate-800 border-2 border-rose-400 rounded-full flex flex-col justify-center items-center shadow-xl">
+                                <i class="fa-solid fa-clock-rotate-left text-5xl text-rose-400 animate-spin" style="animation-duration: 10s;"></i>
+                                <span class="text-xs font-black text-rose-200 mt-2 bg-rose-950 px-2 py-0.5 rounded">Yesterday</span>
+                            </div>
+
+                            <div class="text-base md:text-xl font-black text-white">
+                                Biana <span class="text-amber-400 font-black underline decoration-rose-400 decoration-4">went</span> shopping yesterday.
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-slate-800/90 p-3.5 rounded-2xl border border-rose-500/30">
+                                <div class="font-bold text-rose-300 text-sm mb-1"><i class="fa-solid fa-circle-check mr-1.5"></i> 用法：過去了，現在已改變</div>
+                                <p class="text-slate-300">動作在過去特定時間點已經完成或完結。</p>
+                            </div>
+
+                            <div class="bg-rose-950/50 p-3.5 rounded-2xl border border-rose-500/50">
+                                <div class="font-black text-amber-400 text-xs mb-1"><i class="fa-solid fa-shield-halved mr-1"></i> 呈分試防錯陷阱：</div>
+                                <p class="text-slate-100">
+                                    <span class="text-rose-300 font-bold">this morning / today</span>：需判斷講話當時是否已經到了下午或晚上（即該時間已過）。
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-900/90 p-3 rounded-2xl border border-slate-700">
+                                <div class="text-slate-400 font-bold mb-1.5">📌 必背 Keywords:</div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded">yesterday</span>
+                                    <span class="bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded">3 days ago</span>
+                                    <span class="bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded">last Monday / week</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            {
+                title: "4. Simple Future Tense 將來式",
+                timeRange: "03:30 - 04:30",
+                badge: "TENSE 3: SIMPLE FUTURE",
+                speech: "第三招：Simple Future Tense！將有可能發生嘅計劃。關鍵字有 next week, coming Sunday, tomorrow, soon！金句口訣係：will 後面永遠用原形動詞 Bare Infinitive！例如：Kelvin will go to Japan next week.",
+                subtitle: "Simple Future 表示將來計劃。口訣：will 後面永遠保持原本動詞 Base form！",
+                render: () => `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-full">
+                        <div class="bg-slate-900/90 border border-emerald-500/40 rounded-3xl p-5 text-center space-y-4">
+                            <span class="text-xs font-black text-emerald-400 uppercase tracking-widest">SCENE 3: KELVIN'S JAPAN TRIP</span>
+                            
+                            <div class="relative w-full h-36 bg-slate-800 border-2 border-emerald-400 rounded-2xl overflow-hidden flex items-center justify-between px-6 shadow-xl">
+                                <div class="text-slate-400 text-xs font-bold">Hong Kong</div>
+                                <div class="text-3xl text-emerald-400 animate-plane-fly">
+                                    <i class="fa-solid fa-plane"></i>
+                                </div>
+                                <div class="text-amber-400 text-xs font-bold flex flex-col items-center">
+                                    <i class="fa-solid fa-torii-gate text-lg mb-0.5"></i>
+                                    <span>Japan</span>
+                                </div>
+                            </div>
+
+                            <div class="text-base md:text-xl font-black text-white">
+                                Kelvin <span class="text-amber-400 font-black underline decoration-emerald-400 decoration-4">will go</span> to Japan next week.
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-slate-800/90 p-3.5 rounded-2xl border border-emerald-500/30">
+                                <div class="font-bold text-emerald-300 text-sm mb-1"><i class="fa-solid fa-circle-check mr-1.5"></i> 用法：將有可能發生/計劃</div>
+                                <p class="text-slate-300">表示預測、即將來臨或安排好的將來計劃。</p>
+                            </div>
+
+                            <div class="bg-emerald-950/50 p-3.5 rounded-2xl border border-emerald-500/50">
+                                <div class="font-black text-amber-400 text-xs mb-1"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Target Plus 必勝金句：</div>
+                                <p class="text-slate-100">
+                                    <span class="text-emerald-300 font-bold">will</span> 後面絕不可加 +s, +ed 或 +ing，必須保持 <span class="text-amber-300 font-black">原本動詞 (Base form)</span>！
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-900/90 p-3 rounded-2xl border border-slate-700">
+                                <div class="text-slate-400 font-bold mb-1.5">📌 必背 Keywords:</div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded">tomorrow</span>
+                                    <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded">coming Sunday / week</span>
+                                    <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded">soon / later</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            {
+                title: "5. Present Perfect Tense (Since vs For)",
+                timeRange: "04:30 - 05:30",
+                badge: "TENSE 4: PRESENT PERFECT",
+                speech: "第四招係 P.6 呈分試最熱門考題：Present Perfect Tense！結構係 has 或者 have 加 p.p.！重點背口訣：since 加起點 (例如 since 2010)，for 加時期 (例如 for 16 years)！例如：I have moved to Japan since 2010.",
+                subtitle: "Present Perfect (has/have + p.p.) 跨越時空。口訣：since + 起點，for + 時期！",
+                render: () => `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-full">
+                        <div class="bg-slate-900/90 border border-purple-500/40 rounded-3xl p-5 text-center space-y-3">
+                            <span class="text-xs font-black text-purple-400 uppercase tracking-widest">SCENE 4: SINCE VS FOR VISUALIZER</span>
+                            
+                            <div class="bg-slate-800 p-3.5 rounded-2xl space-y-2.5 border border-purple-500/30">
+                                <div class="flex justify-between items-center text-xs font-bold">
+                                    <span class="text-amber-400">起點: <span id="dyn-start-yr">2010</span></span>
+                                    <span class="text-purple-300">現在: 2026</span>
+                                </div>
+                                <input type="range" min="2000" max="2025" value="2010" oninput="updateSliderData(this.value)" class="w-full accent-amber-400 cursor-pointer">
+                                
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-slate-950 p-2 rounded-xl border border-purple-400/40">
+                                        <span class="text-amber-300 font-bold block">since + 起點</span>
+                                        <span id="dyn-since-text" class="text-slate-200 font-mono">since 2010</span>
+                                    </div>
+                                    <div class="bg-slate-950 p-2 rounded-xl border border-purple-400/40">
+                                        <span class="text-amber-300 font-bold block">for + 時期</span>
+                                        <span id="dyn-for-text" class="text-slate-200 font-mono">for 16 years</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-base md:text-lg font-black text-white">
+                                I <span class="text-amber-400 font-black underline decoration-purple-400 decoration-4">have moved</span> to Japan since 2010.
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-purple-950/70 p-3.5 rounded-2xl border border-purple-500/50 space-y-1.5">
+                                <div class="font-black text-purple-300 text-sm flex items-center">
+                                    <i class="fa-solid fa-crown text-amber-400 mr-1.5"></i> 超級呈分口訣：Since vs For
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-slate-900/90 p-2 rounded-xl border border-purple-400/30">
+                                        <span class="text-amber-400 font-bold block">since + 時間起點</span>
+                                        <span class="text-slate-300">since 2009, since Monday</span>
+                                    </div>
+                                    <div class="bg-slate-900/90 p-2 rounded-xl border border-purple-400/30">
+                                        <span class="text-amber-400 font-bold block">for + 一段時期</span>
+                                        <span class="text-slate-300">for 2 years, for 5 days</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900/90 p-3 rounded-2xl border border-slate-700">
+                                <div class="text-slate-400 font-bold mb-1.5">📌 必背 Keywords:</div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded">already / just</span>
+                                    <span class="bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded">never / ever / yet</span>
+                                    <span class="bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded">before</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            {
+                title: "6. 課堂 Pause-Quiz 互動挑戰",
+                timeRange: "05:30 - 06:00",
+                badge: "INTERACTIVE CHECKPOINT",
+                speech: "最後，請全班同學即時回答這條呈分試題！睇下句中的提示字，揀出正確的時態！Ready? Go!",
+                subtitle: "影片暫停：請同學觀察句中 Keyword 選擇正確 Tense！",
+                render: () => `
+                    <div class="text-center space-y-4 max-w-2xl mx-auto w-full">
+                        <div class="bg-slate-900/90 border border-indigo-500/40 p-5 rounded-3xl space-y-2 shadow-2xl">
+                            <span class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs px-3 py-1 rounded-full font-bold">
+                                Quick Quiz 課堂試題挑戰
+                            </span>
+                            <div class="text-lg md:text-xl font-black text-white">
+                                句中見到提示字 <span class="text-amber-400 underline decoration-purple-400 decoration-4">"since 2010"</span> 時，應該用邊一個時態？
+                            </div>
+                        </div>
+
+                        <div id="quiz-opts" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold">
+                            <button onclick="checkQuizAns(0)" class="btn-bounce bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white p-3 rounded-2xl flex items-center justify-between">
+                                <span>A. Simple Present Tense</span>
+                                <i class="fa-regular fa-circle text-slate-500"></i>
+                            </button>
+                            <button onclick="checkQuizAns(1)" class="btn-bounce bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white p-3 rounded-2xl flex items-center justify-between">
+                                <span>B. Simple Past Tense</span>
+                                <i class="fa-regular fa-circle text-slate-500"></i>
+                            </button>
+                            <button onclick="checkQuizAns(2)" class="btn-bounce bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white p-3 rounded-2xl flex items-center justify-between">
+                                <span>C. Simple Future Tense</span>
+                                <i class="fa-regular fa-circle text-slate-500"></i>
+                            </button>
+                            <button onclick="checkQuizAns(3)" class="btn-bounce bg-slate-800 hover:bg-purple-900/50 border border-purple-500 text-white p-3 rounded-2xl flex items-center justify-between">
+                                <span>D. Present Perfect Tense</span>
+                                <i class="fa-regular fa-circle text-purple-400"></i>
+                            </button>
+                        </div>
+
+                        <div id="quiz-msg" class="hidden p-3.5 rounded-2xl text-xs md:text-sm font-bold"></div>
+                    </div>
+                `
+            }
+        ];
+
+        function loadVideoScene(index) {
+            currentSceneIndex = index;
+            const scene = VIDEO_CHAPTERS[index];
+
+            document.getElementById('video-chapter-badge').innerText = scene.badge;
+            document.getElementById('subtitle-text').innerText = scene.subtitle;
+
+            const stage = document.getElementById('video-stage');
+            stage.innerHTML = scene.render();
+
+            if (scene.speech) {
+                speakText(scene.speech);
+            }
+
+            highlightActiveChapter(index);
+        }
+
+        function highlightActiveChapter(index) {
+            const container = document.getElementById('chapter-list-box');
+            container.innerHTML = '';
+            VIDEO_CHAPTERS.forEach((ch, i) => {
+                const item = document.createElement('div');
+                item.className = i === index
+                    ? "p-2.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-indigo-600/20 border border-amber-500/50 cursor-pointer flex justify-between items-center text-xs font-bold text-amber-300"
+                    : "p-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 cursor-pointer flex justify-between items-center text-xs font-medium text-slate-300";
+                
+                item.onclick = () => jumpToChapter(i);
+                item.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i class="${i === index ? 'fa-solid fa-circle-play text-amber-400' : 'fa-regular fa-circle text-slate-500'}"></i>
+                        <span>${ch.title}</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 font-mono">${ch.timeRange}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const btnText = document.getElementById('main-play-text');
+            const btnIcon = document.getElementById('main-play-icon');
+
+            if (isPlaying) {
+                btnText.innerText = "暫停影片 Pause";
+                btnIcon.className = "fa-solid fa-pause mr-2";
+                playFx('pop');
+                speakText(VIDEO_CHAPTERS[currentSceneIndex].speech);
+                startVideoTimer();
+            } else {
+                btnText.innerText = "播放影片 Play";
+                btnIcon.className = "fa-solid fa-play mr-2";
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                clearInterval(sceneTimer);
+            }
+        }
+
+        function startVideoTimer() {
+            clearInterval(sceneTimer);
+            sceneTimer = setInterval(() => {
+                elapsedTimeInSeconds += 1;
+                if (elapsedTimeInSeconds >= totalVideoSeconds) {
+                    elapsedTimeInSeconds = 0;
+                }
+                updateTimeDisplay();
+
+                // Auto advance scene based on timing
+                const newSceneIndex = Math.floor((elapsedTimeInSeconds / totalVideoSeconds) * VIDEO_CHAPTERS.length);
+                if (newSceneIndex !== currentSceneIndex && newSceneIndex < VIDEO_CHAPTERS.length) {
+                    loadVideoScene(newSceneIndex);
+                }
+            }, 1000 / playbackSpeed);
+        }
+
+        function updateTimeDisplay() {
+            const currentMin = Math.floor(elapsedTimeInSeconds / 60);
+            const currentSec = elapsedTimeInSeconds % 60;
+            const formattedCurrent = `${String(currentMin).padStart(2, '0')}:${String(currentSec).padStart(2, '0')}`;
+            document.getElementById('current-time-display').innerText = formattedCurrent;
+
+            const progressPct = (elapsedTimeInSeconds / totalVideoSeconds) * 100;
+            document.getElementById('timeline-scrubber').value = progressPct;
+        }
+
+        function seekVideo(val) {
+            elapsedTimeInSeconds = Math.floor((val / 100) * totalVideoSeconds);
+            updateTimeDisplay();
+            const newSceneIndex = Math.min(
+                Math.floor((elapsedTimeInSeconds / totalVideoSeconds) * VIDEO_CHAPTERS.length),
+                VIDEO_CHAPTERS.length - 1
+            );
+            if (newSceneIndex !== currentSceneIndex) {
+                loadVideoScene(newSceneIndex);
+            }
+        }
+
+        function rewind10s() {
+            elapsedTimeInSeconds = Math.max(0, elapsedTimeInSeconds - 10);
+            updateTimeDisplay();
+            playFx('pop');
+        }
+
+        function forward10s() {
+            elapsedTimeInSeconds = Math.min(totalVideoSeconds, elapsedTimeInSeconds + 10);
+            updateTimeDisplay();
+            playFx('pop');
+        }
+
+        function jumpToChapter(index) {
+            elapsedTimeInSeconds = Math.floor((index / VIDEO_CHAPTERS.length) * totalVideoSeconds);
+            updateTimeDisplay();
+            loadVideoScene(index);
+            playFx('chime');
+            if (isPlaying) speakText(VIDEO_CHAPTERS[index].speech);
+        }
+
+        function updateSliderData(val) {
+            const currentYear = 2026;
+            const duration = currentYear - parseInt(val);
+            const startValEl = document.getElementById('dyn-start-yr');
+            const sinceEl = document.getElementById('dyn-since-text');
+            const forEl = document.getElementById('dyn-for-text');
+
+            if (startValEl) startValEl.innerText = val;
+            if (sinceEl) sinceEl.innerText = `since ${val}`;
+            if (forEl) forEl.innerText = `for ${duration} years`;
+        }
+
+        function checkQuizAns(choice) {
+            const msg = document.getElementById('quiz-msg');
+            msg.classList.remove('hidden');
+
+            if (choice === 3) {
+                playFx('correct');
+                msg.className = "bg-emerald-950/80 border border-emerald-500 text-emerald-300 p-3.5 rounded-2xl font-bold animate-bounce";
+                msg.innerHTML = `<i class="fa-solid fa-circle-check text-lg mr-1.5"></i> 恭喜答對！"since + 起點" 必須搭配 Present Perfect Tense (has/have + p.p.)！`;
+                speakText("答對了！ Very good! since 加起點一定要用 Present Perfect Tense！");
+            } else {
+                playFx('pop');
+                msg.className = "bg-rose-950/80 border border-rose-500 text-rose-300 p-3.5 rounded-2xl font-bold";
+                msg.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-lg mr-1.5"></i> 再試一次！提示：since 是指由過去起點帶到現在！`;
+                speakText("再試一次！提示：since 是指由過去起點帶到現在！");
+            }
+        }
+
+        window.onload = function() {
+            loadVideoScene(0);
+        };
+    </script>
+</body>
+</html>
