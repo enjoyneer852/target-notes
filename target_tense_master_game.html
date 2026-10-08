@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Plus Education Center - P.6 Tense Master Game</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+            color: #f8fafc;
+            user-select: none;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .btn-bounce {
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-bounce:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+        .btn-bounce:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .pulse-glow {
+            animation: pulse-glow-anim 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow-anim {
+            0% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.5); }
+            100% { box-shadow: 0 0 25px rgba(168, 85, 247, 0.8); }
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6366f1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen justify-between overflow-x-hidden">
+
+    <!-- Top Navigation Header -->
+    <header class="w-full px-4 py-3 border-b border-indigo-500/30 bg-slate-900/80 sticky top-0 z-40 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-red-500 flex items-center justify-center font-bold text-slate-900 text-xl shadow-lg">
+                    T+
+                </div>
+                <div>
+                    <h1 class="font-black text-lg md:text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-amber-200 to-indigo-200">
+                        TARGET PLUS <span class="text-xs bg-indigo-600/80 text-indigo-100 px-2 py-0.5 rounded-full uppercase ml-1">P.6 Tense Master</span>
+                    </h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">Lesson 9: Tenses (Present / Past / Future / Present Perfect)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <button id="notes-btn" onclick="toggleNotesModal(true)" class="btn-bounce bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-xl text-sm flex items-center font-bold">
+                    <i class="fa-solid fa-book-open mr-2"></i>語法秘籍
+                </button>
+                <button id="sound-btn" onclick="toggleSound()" class="bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 w-9 h-9 rounded-xl flex items-center justify-center">
+                    <i id="sound-icon" class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto w-full p-4 flex-grow flex flex-col justify-center items-center relative my-4">
+
+        <!-- 1. START SCREEN -->
+        <div id="start-screen" class="w-full glass-card rounded-3xl p-6 md:p-10 text-center relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-10 -top-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <span class="inline-block px-4 py-1.5 bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 rounded-full text-sm font-semibold mb-4">
+                <i class="fa-solid fa-graduation-cap mr-1"></i> 香港小六英文專攻課堂
+            </span>
+
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-3 tracking-wide">
+                時態時空大冒險 <span class="text-amber-400 block sm:inline text-2xl md:text-4xl mt-2 sm:mt-0">Tense Master Challenge</span>
+            </h2>
+            <p class="text-slate-300 max-w-xl mx-auto mb-8 text-sm md:text-base leading-relaxed">
+                Hello class! 歡迎來到 Target Plus 英文專攻課堂！想掌握 P.6 必考四大時態 (Simple Present, Simple Past, Simple Future, Present Perfect)？挑戰 3 大關卡，做個時態小達人！
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto text-left">
+                <div class="bg-slate-800/80 border border-indigo-500/30 p-4 rounded-2xl flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-layer-group"></i></div>
+                    <div>
+                        <div class="text-xs text-slate-400">關卡 1</div>
+                        <div class="font-bold text-white text-sm">關鍵字急速分類</div>
+                    </div>
+                </div>
+                <div class="bg-slate-800/80 border border-indigo-500/30 p-4 rounded-2xl flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-bolt"></i></div>
+                    <div>
+                        <div class="text-xs text-slate-400">關卡 2</div>
+                        <div class="font-bold text-white text-sm">動詞變法特訓</div>
+                    </div>
+                </div>
+                <div class="bg-slate-800/80 border border-indigo-500/30 p-4 rounded-2xl flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div>
+                        <div class="text-xs text-slate-400">關卡 3</div>
+                        <div class="font-bold text-white text-sm">時空偵探 Boss 戰</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Name Input & Start Button -->
+            <div class="max-w-md mx-auto space-y-4">
+                <div>
+                    <label for="student-name" class="block text-xs text-slate-400 font-semibold mb-1 text-left px-1">輸入學生姓名 / 綽號：</label>
+                    <input type="text" id="student-name" value="P.6 Student" placeholder="例如: Kelvin / Biana" class="w-full bg-slate-900/90 border border-indigo-500/50 rounded-2xl px-4 py-3 text-white text-center focus:outline-none focus:border-amber-400 text-lg font-bold">
+                </div>
+
+                <button onclick="startGame()" class="btn-bounce w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xl py-4 rounded-2xl shadow-xl shadow-amber-500/20 flex items-center justify-center space-x-2">
+                    <span>開始挑戰 Let's Play!</span>
+                    <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. GAME HUD & STAGE CONTAINER -->
+        <div id="game-container" class="w-full hidden flex-col space-y-4">
+            
+            <!-- HUD / Header Info -->
+            <div class="glass-card rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
+                <div class="flex items-center space-x-3">
+                    <span id="stage-badge" class="px-3 py-1 bg-indigo-600 text-white font-bold text-xs rounded-full uppercase tracking-wider">
+                        Stage 1
+                    </span>
+                    <span id="stage-title" class="text-sm md:text-base font-bold text-slate-200">
+                        關鍵字分類戰 (Keyword Sorting)
+                    </span>
+                </div>
+
+                <div class="flex items-center space-x-4 md:space-x-6 text-sm font-bold">
+                    <div class="text-slate-400">
+                        <i class="fa-solid fa-user text-indigo-400 mr-1"></i> <span id="hud-name" class="text-white">P.6 Student</span>
+                    </div>
+                    <div class="text-slate-400">
+                        <i class="fa-solid fa-star text-amber-400 mr-1"></i> 得分: <span id="hud-score" class="text-amber-400 text-lg">0</span>
+                    </div>
+                    <div class="text-slate-400">
+                        <i class="fa-solid fa-fire text-red-400 mr-1"></i> 連勝: <span id="hud-streak" class="text-red-400 text-lg">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-800/60 rounded-full h-2.5 overflow-hidden border border-slate-700">
+                <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-amber-400 h-full w-0 transition-all duration-300"></div>
+            </div>
+
+            <!-- GAME STAGE 1: KEYWORD SORTING -->
+            <div id="stage1-view" class="glass-card rounded-3xl p-6 text-center space-y-6">
+                <div class="space-y-1">
+                    <h3 class="text-xl md:text-2xl font-bold text-amber-300">拖放/點擊將提示字 (Keywords) 分類至正確時態！</h3>
+                    <p class="text-xs md:text-sm text-slate-300">看清楚筆記的關鍵字！點擊下方字卡，再點擊對應的時態箱。</p>
+                </div>
+
+                <!-- Current Floating Keyword Card -->
+                <div id="keyword-card-box" class="py-4 flex justify-center">
+                    <div id="current-keyword-card" onclick="selectKeywordCard()" class="pulse-glow bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-xl md:text-2xl px-8 py-4 rounded-2xl shadow-xl cursor-pointer hover:scale-105 transition-transform flex items-center space-x-3 border-2 border-white/50">
+                        <i class="fa-solid fa-hand-pointer text-slate-900 text-lg"></i>
+                        <span id="keyword-text">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- Tense Drop Bins Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <!-- Bin A: Simple Present -->
+                    <button onclick="handleBinSelection('present')" class="btn-bounce bg-slate-800/90 border-2 border-blue-500/50 hover:border-blue-400 p-4 rounded-2xl flex flex-col items-center justify-center space-y-2 group text-left relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
+                        <span class="text-xs text-blue-400 font-bold tracking-widest uppercase">Simple Present Tense</span>
+                        <span class="text-base font-extrabold text-white">簡單現在式</span>
+                        <span class="text-xs text-slate-400">習慣、永恆事實、喜好 (always, every...)</span>
+                    </button>
+
+                    <!-- Bin B: Simple Past -->
+                    <button onclick="handleBinSelection('past')" class="btn-bounce bg-slate-800/90 border-2 border-rose-500/50 hover:border-rose-400 p-4 rounded-2xl flex flex-col items-center justify-center space-y-2 group text-left relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-rose-500"></div>
+                        <span class="text-xs text-rose-400 font-bold tracking-widest uppercase">Simple Past Tense</span>
+                        <span class="text-base font-extrabold text-white">過去式</span>
+                        <span class="text-xs text-slate-400">過去發生、已改變 (yesterday, ago, last...)</span>
+                    </button>
+
+                    <!-- Bin C: Simple Future -->
+                    <button onclick="handleBinSelection('future')" class="btn-bounce bg-slate-800/90 border-2 border-emerald-500/50 hover:border-emerald-400 p-4 rounded-2xl flex flex-col items-center justify-center space-y-2 group text-left relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-emerald-500"></div>
+                        <span class="text-xs text-emerald-400 font-bold tracking-widest uppercase">Simple Future Tense</span>
+                        <span class="text-base font-extrabold text-white">將來式</span>
+                        <span class="text-xs text-slate-400">將有可能發生 (tomorrow, coming, next...)</span>
+                    </button>
+
+                    <!-- Bin D: Present Perfect -->
+                    <button onclick="handleBinSelection('perfect')" class="btn-bounce bg-slate-800/90 border-2 border-purple-500/50 hover:border-purple-400 p-4 rounded-2xl flex flex-col items-center justify-center space-y-2 group text-left relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
+                        <span class="text-xs text-purple-400 font-bold tracking-widest uppercase">Present Perfect Tense</span>
+                        <span class="text-base font-extrabold text-white">現在完成式</span>
+                        <span class="text-xs text-slate-400">由過去帶到現在 (already, since, for...)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- GAME STAGE 2 & 3: QUIZ / VERB ZAP / BOSS BATTLE -->
+            <div id="stage2-3-view" class="glass-card rounded-3xl p-6 md:p-8 hidden space-y-6">
+                <!-- Question Context Box -->
+                <div class="bg-slate-900/80 border border-indigo-500/30 rounded-2xl p-5 md:p-6 text-center space-y-3 relative">
+                    <span id="question-number" class="text-xs font-extrabold px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full">
+                        Question 1 of 5
+                    </span>
+                    
+                    <div id="sentence-box" class="text-xl md:text-2xl font-bold text-white tracking-wide leading-relaxed min-h-[60px] flex items-center justify-center">
+                        <!-- Dynamic Sentence Fill -->
+                    </div>
+
+                    <p id="sentence-hint" class="text-xs text-indigo-300 italic">
+                        <!-- Hint or Chinese Translation -->
+                    </p>
+                </div>
+
+                <!-- Answer Options Grid -->
+                <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Dynamic Options Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Feedback Modal / Inline Banner -->
+            <div id="feedback-banner" class="hidden glass-card p-4 rounded-2xl flex items-center justify-between transition-all">
+                <div class="flex items-center space-x-3">
+                    <div id="feedback-icon" class="text-2xl"></div>
+                    <div>
+                        <div id="feedback-title" class="font-bold text-base"></div>
+                        <div id="feedback-explanation" class="text-xs text-slate-300"></div>
+                    </div>
+                </div>
+                <button onclick="nextQuestion()" class="btn-bounce bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shrink-0">
+                    下一題 Next <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- 3. RESULT & CERTIFICATE SCREEN -->
+        <div id="result-screen" class="w-full glass-card rounded-3xl p-6 md:p-10 text-center hidden space-y-6 relative overflow-hidden">
+            <div class="space-y-2">
+                <div id="stars-row" class="text-4xl md:text-5xl text-amber-400 space-x-2">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white">挑戰完成！ Challenge Completed!</h2>
+                <p id="result-subtitle" class="text-slate-300 text-sm md:text-base">Target Plus 英文專攻班 - 恭喜你完成 4 大時態特訓！</p>
+            </div>
+
+            <!-- Score Summary Card -->
+            <div class="max-w-md mx-auto bg-slate-900/90 border border-indigo-500/40 rounded-2xl p-6 space-y-4">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                    <span class="text-slate-400 text-sm">學生姓名 Student Name:</span>
+                    <span id="result-name" class="font-bold text-amber-300 text-lg">Kelvin</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                    <span class="text-slate-400 text-sm">總得分 Total Score:</span>
+                    <span id="result-score" class="font-black text-2xl text-emerald-400">1200</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                    <span class="text-slate-400 text-sm">答對率 Accuracy:</span>
+                    <span id="result-accuracy" class="font-bold text-white text-lg">90%</span>
+                </div>
+                <div class="text-left pt-2">
+                    <span class="text-xs text-slate-400 font-semibold block mb-1">老師評語 Teacher's Comment:</span>
+                    <p id="result-comment" class="text-xs md:text-sm text-indigo-200 bg-indigo-950/60 p-3 rounded-xl border border-indigo-800/50">
+                        太棒了！你對提示字 (Keywords) 和Present Perfect 的 since/for 運用非常熟練！考中學呈分試必能考取 🌟 星級成績！
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-md mx-auto">
+                <button onclick="restartGame()" class="btn-bounce w-full sm:w-1/2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 px-6 rounded-2xl flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>再挑戰一次</span>
+                </button>
+                <button onclick="toggleNotesModal(true)" class="btn-bounce w-full sm:w-1/2 bg-slate-800 border border-indigo-500/40 hover:bg-slate-700 text-indigo-200 font-bold py-3 px-6 rounded-2xl flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>溫習語法筆記</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- GRAMMAR NOTES MODAL (PDF Content Mirror) -->
+    <div id="notes-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex justify-center items-center p-4">
+        <div class="bg-slate-900 border border-indigo-500/40 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-800/90 border-b border-indigo-500/30 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-bold">
+                        P.6
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-white">Target English - P.6-T1-L9 Grammar Note</h3>
+                        <p class="text-xs text-amber-400">時態總整理 (Simple Present / Past / Future / Present Perfect)</p>
+                    </div>
+                </div>
+                <button onclick="toggleNotesModal(false)" class="text-slate-400 hover:text-white text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-800">
+                    &times;
+                </button>
+            </div>
+
+            <!-- Modal Body (Table based on PDF) -->
+            <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-200">
+                <!-- Cheat Sheet Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- 1. Simple Present -->
+                    <div class="bg-slate-800/60 border border-blue-500/30 p-4 rounded-2xl space-y-2">
+                        <div class="flex items-center justify-between border-b border-blue-500/30 pb-2">
+                            <span class="font-bold text-blue-400">1. Simple Present Tense (簡單現在式)</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-300 list-disc list-inside">
+                            <li><strong class="text-white">用法：</strong>永恆狀況/事實、習慣、喜好、狀況</li>
+                            <li><strong class="text-white">動詞：</strong>原本動詞 (原本不變) <br><span class="text-amber-300">⚠️ 留意: He/She/It 後動詞要加 +s / +es / +ies</span></li>
+                            <li><strong class="text-white">Keywords:</strong> always, usually, sometimes, often, seldom, once a week, twice a month, every day/month, on Mondays...</li>
+                            <li><strong class="text-white">例句：</strong>Biana goes shopping every Sunday.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 2. Simple Past -->
+                    <div class="bg-slate-800/60 border border-rose-500/30 p-4 rounded-2xl space-y-2">
+                        <div class="flex items-center justify-between border-b border-rose-500/30 pb-2">
+                            <span class="font-bold text-rose-400">2. Simple Past Tense (過去式)</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-300 list-disc list-inside">
+                            <li><strong class="text-white">用法：</strong>過去動作、現在已改變</li>
+                            <li><strong class="text-white">動詞：</strong>轉過去式 (went, played, saw...)</li>
+                            <li><strong class="text-white">Keywords:</strong> yesterday, ago, last (Monday/week), this (morning/afternoon - 需判斷是否已過), today</li>
+                            <li><strong class="text-white">例句：</strong>Biana went shopping yesterday.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 3. Simple Future -->
+                    <div class="bg-slate-800/60 border border-emerald-500/30 p-4 rounded-2xl space-y-2">
+                        <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
+                            <span class="font-bold text-emerald-400">3. Simple Future Tense (將來式)</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-300 list-disc list-inside">
+                            <li><strong class="text-white">用法：</strong>將有可能發生</li>
+                            <li><strong class="text-white">動詞：</strong>will + 原本動詞</li>
+                            <li><strong class="text-white">Keywords:</strong> coming (Sunday/week/weekend), soon, later, tomorrow, next (year/week/month)...</li>
+                            <li><strong class="text-white">例句：</strong>Kelvin will go to Japan next week.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 4. Present Perfect -->
+                    <div class="bg-slate-800/60 border border-purple-500/30 p-4 rounded-2xl space-y-2">
+                        <div class="flex items-center justify-between border-b border-purple-500/30 pb-2">
+                            <span class="font-bold text-purple-400">4. Present Perfect Tense (現在完成式)</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-300 list-disc list-inside">
+                            <li><strong class="text-white">用法：</strong>由過去帶到現在，或過去動作影響現在</li>
+                            <li><strong class="text-white">動詞：</strong>has / have + p.p. (Past Participle)</li>
+                            <li><strong class="text-white">Keywords:</strong> already, just, never, ever, yet, before, <span class="text-amber-300">since + 起點 (since 2009)</span>, <span class="text-amber-300">for + 時期 (for 2 years)</span></li>
+                            <li><strong class="text-white">例句：</strong>I have moved to Japan since 2010.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-2xl text-xs text-amber-200">
+                    <i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> <strong>Target Plus Sir/Miss 提提你：</strong> 考試做卷時，一定要先尋找句中的 <strong>Keyword (提示字)</strong>！找不到提示字時，要細心判斷說話時動作是「習慣」、「過去」定係「由過去維持到現在」！
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-3 bg-slate-800/90 border-t border-indigo-500/30 text-right">
+                <button onclick="toggleNotesModal(false)" class="btn-bounce bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2 rounded-xl text-xs">
+                    明白！回到遊戲 Got it!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-3 text-xs text-slate-500 border-t border-slate-800">
+        Target Plus Education Center &copy; All Rights Reserved. Internal use only.
+    </footer>
+
+    <script>
+        // Sound FX Engine using Web Audio API (Zero external audio file dependency)
+        let audioCtx = null;
+        let soundEnabled = true;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now); // A3
+                osc.frequency.setValueAtTime(164.81, now + 0.15); // E3
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'win') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.setValueAtTime(554.37, now + 0.1);
+                osc.frequency.setValueAtTime(659.25, now + 0.2);
+                osc.frequency.setValueAtTime(880, now + 0.3);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now);
+                osc.stop(now + 0.6);
+            } else if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high';
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-slate-500';
+            }
+        }
+
+        function toggleNotesModal(show) {
+            playSound('click');
+            const modal = document.getElementById('notes-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        // Dataset based directly on Target Plus English P.6-T1-L9 notes
+        const KEYWORD_ITEMS = [
+            { text: 'always / usually', category: 'present', tip: '表示習慣/頻率，用 Simple Present Tense' },
+            { text: 'twice a month', category: 'present', tip: '表示習慣性頻率，用 Simple Present Tense' },
+            { text: 'every Sunday', category: 'present', tip: 'every 代表定期習慣，用 Simple Present Tense' },
+            { text: 'on Mondays', category: 'present', tip: 'on + 複數星期 代表每個星期的習慣' },
+            { text: 'yesterday', category: 'past', tip: '昨天發生，用 Simple Past Tense' },
+            { text: '2 days ago', category: 'past', tip: 'ago 代表過去多久之前，用 Simple Past Tense' },
+            { text: 'last week', category: 'past', tip: 'last 代表上一個，用 Simple Past Tense' },
+            { text: 'coming Sunday', category: 'future', tip: 'coming 代表即將來臨的，用 Simple Future Tense' },
+            { text: 'soon / later', category: 'future', tip: '快將/遲一些發生，用 Simple Future Tense' },
+            { text: 'tomorrow', category: 'future', tip: '明天，用 Simple Future Tense' },
+            { text: 'next year', category: 'future', tip: 'next 代表下一個，用 Simple Future Tense' },
+            { text: 'already / just', category: 'perfect', tip: '已經/剛好，用 Present Perfect Tense (has/have + p.p.)' },
+            { text: 'since 2010', category: 'perfect', tip: 'since + 時間起點，用 Present Perfect Tense' },
+            { text: 'for 2 years', category: 'perfect', tip: 'for + 時間時期 (Duration)，用 Present Perfect Tense' },
+            { text: 'never / ever / yet', category: 'perfect', tip: '從未/曾經/還未，用 Present Perfect Tense' }
+        ];
+
+        const QUIZ_QUESTIONS = [
+            // Stage 2 Questions (Verb Zap)
+            {
+                stage: 2,
+                sentence: "Biana _____ shopping every Sunday.",
+                verb: "(go)",
+                options: ["goes", "went", "will go", "has gone"],
+                correct: 0,
+                explanation: "提示字為 'every Sunday' (習慣)，主語是 Biana (She)，動詞加 -es -> goes。"
+            },
+            {
+                stage: 2,
+                sentence: "Biana _____ shopping yesterday.",
+                verb: "(go)",
+                options: ["goes", "went", "will go", "has gone"],
+                correct: 1,
+                explanation: "提示字為 'yesterday' (過去式)，go 的過去式是 went。"
+            },
+            {
+                stage: 2,
+                sentence: "Kelvin _____ to Japan next week.",
+                verb: "(go)",
+                options: ["goes", "went", "will go", "has gone"],
+                correct: 2,
+                explanation: "提示字為 'next week' (將來式)，格式為 will + 原本動詞 -> will go。"
+            },
+            {
+                stage: 2,
+                sentence: "I _____ to Japan since 2010.",
+                verb: "(move)",
+                options: ["move", "moved", "will move", "have moved"],
+                correct: 3,
+                explanation: "提示字為 'since 2010' (過去帶到現在)，格式為 have/has + p.p. -> have moved。"
+            },
+            {
+                stage: 2,
+                sentence: "Look! My brother _____ his homework already.",
+                verb: "(finish)",
+                options: ["finishes", "finished", "has finished", "will finish"],
+                correct: 2,
+                explanation: "提示字為 'already' (Present Perfect)，My brother (He) 用 has finished。"
+            },
+            // Stage 3 Questions (Boss Detective Battle)
+            {
+                stage: 3,
+                sentence: "They have lived in Hong Kong _____ 5 years.",
+                verb: "(since / for)",
+                options: ["since", "for", "ago", "last"],
+                correct: 1,
+                explanation: "5 years 是一段時期 (Duration)，根據筆記要用 'for + 時期'。"
+            },
+            {
+                stage: 3,
+                sentence: "Miss Lee _____ to school coming Monday.",
+                verb: "(come)",
+                options: ["comes", "came", "will come", "has come"],
+                correct: 2,
+                explanation: "提示字為 'coming Monday' (即將來臨)，將來式用 will come。"
+            },
+            {
+                stage: 3,
+                sentence: "Peter _____ swimming once a week.",
+                verb: "(go)",
+                options: ["go", "goes", "went", "has gone"],
+                correct: 1,
+                explanation: "提示字 'once a week' 是喜好/習慣，Peter 為單數 He，用 goes。"
+            },
+            {
+                stage: 3,
+                sentence: "We _____ each other since 2018.",
+                verb: "(know)",
+                options: ["know", "knew", "will know", "have known"],
+                correct: 3,
+                explanation: "提示字 'since + 2018 起點'，要用 Present Perfect: have + known (know 的 p.p.)。"
+            },
+            {
+                stage: 3,
+                sentence: "_____ you ever visited Disneyland?",
+                verb: "(Have / Did)",
+                options: ["Do", "Did", "Will", "Have"],
+                correct: 3,
+                explanation: "句中有 'ever' 與 'visited' (p.p.)，詢問經驗用 Have you ever..."
+            }
+        ];
+
+        let gameState = {
+            studentName: "P.6 Student",
+            score: 0,
+            streak: 0,
+            currentStage: 1, // 1: Keywords, 2: Verb Zap, 3: Boss Battle
+            stage1Index: 0,
+            stage2Index: 0,
+            shuffledKeywords: [],
+            shuffledQuestions: [],
+            totalCorrect: 0,
+            totalAnswered: 0
+        };
+
+        function startGame() {
+            playSound('click');
+            const nameInput = document.getElementById('student-name').value.trim();
+            if (nameInput) {
+                gameState.studentName = nameInput;
+            }
+
+            gameState.score = 0;
+            gameState.streak = 0;
+            gameState.currentStage = 1;
+            gameState.stage1Index = 0;
+            gameState.stage2Index = 0;
+            gameState.totalCorrect = 0;
+            gameState.totalAnswered = 0;
+
+            // Shuffle data
+            gameState.shuffledKeywords = [...KEYWORD_ITEMS].sort(() => Math.random() - 0.5).slice(0, 8); // 8 items for stage 1
+            gameState.shuffledQuestions = [...QUIZ_QUESTIONS].sort(() => Math.random() - 0.5);
+
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            document.getElementById('game-container').classList.add('flex');
+
+            updateHUD();
+            loadStage1Item();
+        }
+
+        function updateHUD() {
+            document.getElementById('hud-name').innerText = gameState.studentName;
+            document.getElementById('hud-score').innerText = gameState.score;
+            document.getElementById('hud-streak').innerText = gameState.streak;
+
+            const totalSteps = gameState.shuffledKeywords.length + gameState.shuffledQuestions.length;
+            const progress = (gameState.totalAnswered / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function loadStage1Item() {
+            document.getElementById('stage1-view').classList.remove('hidden');
+            document.getElementById('stage2-3-view').classList.add('hidden');
+            document.getElementById('feedback-banner').classList.add('hidden');
+
+            document.getElementById('stage-badge').innerText = "Stage 1";
+            document.getElementById('stage-title').innerText = "關鍵字急速分類 (Keyword Sorting)";
+
+            if (gameState.stage1Index >= gameState.shuffledKeywords.length) {
+                // Advance to Stage 2
+                gameState.currentStage = 2;
+                loadQuizQuestion();
+                return;
+            }
+
+            const item = gameState.shuffledKeywords[gameState.stage1Index];
+            const cardText = document.getElementById('keyword-text');
+            cardText.innerText = item.text;
+        }
+
+        function handleBinSelection(category) {
+            const currentItem = gameState.shuffledKeywords[gameState.stage1Index];
+            gameState.totalAnswered++;
+
+            if (currentItem.category === category) {
+                // Correct
+                playSound('correct');
+                gameState.score += 100 + (gameState.streak * 10);
+                gameState.streak++;
+                gameState.totalCorrect++;
+                showFeedback(true, "答對了！ Correct!", currentItem.tip);
+            } else {
+                // Wrong
+                playSound('wrong');
+                gameState.streak = 0;
+                showFeedback(false, "再試試看！ Incorrect", `答案是【${getCategoryName(currentItem.category)}】。 ${currentItem.tip}`);
+            }
+
+            updateHUD();
+        }
+
+        function getCategoryName(cat) {
+            switch(cat) {
+                case 'present': return 'Simple Present Tense';
+                case 'past': return 'Simple Past Tense';
+                case 'future': return 'Simple Future Tense';
+                case 'perfect': return 'Present Perfect Tense';
+            }
+        }
+
+        function loadQuizQuestion() {
+            document.getElementById('stage1-view').classList.add('hidden');
+            document.getElementById('stage2-3-view').classList.remove('hidden');
+            document.getElementById('feedback-banner').classList.add('hidden');
+
+            if (gameState.stage2Index >= gameState.shuffledQuestions.length) {
+                // End of game
+                showResults();
+                return;
+            }
+
+            const q = gameState.shuffledQuestions[gameState.stage2Index];
+
+            // Set HUD stage name
+            if (q.stage === 2) {
+                document.getElementById('stage-badge').innerText = "Stage 2";
+                document.getElementById('stage-badge').className = "px-3 py-1 bg-purple-600 text-white font-bold text-xs rounded-full uppercase tracking-wider";
+                document.getElementById('stage-title').innerText = "動詞變法特訓 (Verb Zap)";
+            } else {
+                document.getElementById('stage-badge').innerText = "Boss Stage";
+                document.getElementById('stage-badge').className = "px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-full uppercase tracking-wider";
+                document.getElementById('stage-title').innerText = "時空偵探 Boss 戰 (Tense Detective)";
+            }
+
+            document.getElementById('question-number').innerText = `Question ${gameState.stage2Index + 1} of ${gameState.shuffledQuestions.length}`;
+            document.getElementById('sentence-box').innerText = q.sentence;
+            document.getElementById('sentence-hint').innerText = `提示提示詞 / 動詞: ${q.verb}`;
+
+            // Render options
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "btn-bounce bg-slate-800 hover:bg-indigo-600/50 border border-slate-700 hover:border-indigo-400 text-white font-bold py-4 px-6 rounded-2xl text-lg flex items-center justify-between transition-all";
+                btn.onclick = () => checkQuizAnswer(index);
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-500"></i>`;
+                grid.appendChild(btn);
+            });
+        }
+
+        function checkQuizAnswer(selectedIndex) {
+            const q = gameState.shuffledQuestions[gameState.stage2Index];
+            gameState.totalAnswered++;
+
+            const optionsBtns = document.getElementById('options-grid').children;
+            // Disable buttons
+            for (let btn of optionsBtns) {
+                btn.disabled = true;
+                btn.classList.remove('btn-bounce');
+            }
+
+            if (selectedIndex === q.correct) {
+                playSound('correct');
+                gameState.score += 150 + (gameState.streak * 20);
+                gameState.streak++;
+                gameState.totalCorrect++;
+                optionsBtns[selectedIndex].className = "bg-emerald-600 border-2 border-emerald-400 text-white font-bold py-4 px-6 rounded-2xl text-lg flex items-center justify-between";
+                optionsBtns[selectedIndex].querySelector('i').className = "fa-solid fa-circle-check text-white";
+                showFeedback(true, "答對了！ Correct!", q.explanation);
+            } else {
+                playSound('wrong');
+                gameState.streak = 0;
+                optionsBtns[selectedIndex].className = "bg-rose-600/80 border-2 border-rose-400 text-white font-bold py-4 px-6 rounded-2xl text-lg flex items-center justify-between shake";
+                optionsBtns[selectedIndex].querySelector('i').className = "fa-solid fa-circle-xmark text-white";
+                
+                // Highlight correct one
+                optionsBtns[q.correct].className = "bg-emerald-600/50 border-2 border-emerald-400 text-white font-bold py-4 px-6 rounded-2xl text-lg flex items-center justify-between";
+                
+                showFeedback(false, "答錯了！ Incorrect", q.explanation);
+            }
+
+            updateHUD();
+        }
+
+        function showFeedback(isCorrect, title, desc) {
+            const banner = document.getElementById('feedback-banner');
+            const icon = document.getElementById('feedback-icon');
+            const titleEl = document.getElementById('feedback-title');
+            const descEl = document.getElementById('feedback-explanation');
+
+            banner.classList.remove('hidden');
+            if (isCorrect) {
+                banner.className = "glass-card p-4 rounded-2xl flex items-center justify-between border-2 border-emerald-500/50 bg-emerald-950/30";
+                icon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+                titleEl.className = "font-bold text-base text-emerald-300";
+            } else {
+                banner.className = "glass-card p-4 rounded-2xl flex items-center justify-between border-2 border-rose-500/50 bg-rose-950/30";
+                icon.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-400"></i>`;
+                titleEl.className = "font-bold text-base text-rose-300";
+            }
+
+            titleEl.innerText = title;
+            descEl.innerText = desc;
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            if (gameState.currentStage === 1) {
+                gameState.stage1Index++;
+                loadStage1Item();
+            } else {
+                gameState.stage2Index++;
+                loadQuizQuestion();
+            }
+        }
+
+        function showResults() {
+            playSound('win');
+            document.getElementById('game-container').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const accuracy = Math.round((gameState.totalCorrect / gameState.totalAnswered) * 100) || 0;
+
+            document.getElementById('result-name').innerText = gameState.studentName;
+            document.getElementById('result-score').innerText = gameState.score;
+            document.getElementById('result-accuracy').innerText = `${accuracy}% (${gameState.totalCorrect}/${gameState.totalAnswered})`;
+
+            // Stars
+            const starsContainer = document.getElementById('stars-row');
+            if (accuracy >= 80) {
+                starsContainer.innerHTML = `<i class="fa-solid fa-star text-amber-400"></i><i class="fa-solid fa-star text-amber-400"></i><i class="fa-solid fa-star text-amber-400"></i>`;
+                document.getElementById('result-comment').innerText = "🌟 太強了！你已經徹底掌握了 P.6 呈分試必考四大時態！尤其 Present Perfect 的 since/for 運用完美！繼續保持！";
+            } else if (accuracy >= 60) {
+                starsContainer.innerHTML = `<i class="fa-solid fa-star text-amber-400"></i><i class="fa-solid fa-star text-amber-400"></i><i class="fa-regular fa-star text-slate-600"></i>`;
+                document.getElementById('result-comment').innerText = "👍 表現不錯！對基本的 Past & Future Tense 很熟悉。建議多按「語法秘籍」溫習 Present Perfect Tense 的提示字！";
+            } else {
+                starsContainer.innerHTML = `<i class="fa-solid fa-star text-amber-400"></i><i class="fa-regular fa-star text-slate-600"></i><i class="fa-regular fa-star text-slate-600"></i>`;
+                document.getElementById('result-comment').innerText = "💪 加油！做英文卷最重要搵出 Keyword (提示字)！點擊下方「溫習語法筆記」多看一次例句再挑戰吧！";
+            }
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        window.onload = function() {
+            // Check if loaded
+        };
+    </script>
+</body>
+</html>
